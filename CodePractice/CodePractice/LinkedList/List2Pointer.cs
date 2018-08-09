@@ -13,7 +13,8 @@ namespace CodePractice.LinkedList
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(LPalin(new ListNode(1)));
+            TLinkedList testList = new TLinkedList(new int[]{1,2,1});
+            Console.WriteLine(LPalin(testList.Head));
         }
         private static int LPalin(ListNode inputList)
         {
@@ -23,14 +24,14 @@ namespace CodePractice.LinkedList
             ListNode head = inputList;
             ListNode headToCheck = inputList;
             // Traverse the list to push the values into this Stack
-            while (head.next != null)
+            while (head != null)
             {
                 poppedList.Push(head.val);
                 head = head.next;
             }
 
             // Match the elements for checking the palindrome. 
-            while(headToCheck.next != null)
+            while(headToCheck != null)
             {
                 int popedElement = poppedList.Pop();
                 if(popedElement == headToCheck.val)
