@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CodePractice/.vs/CodePractice
+/CodePractice/CodePractice/bin/Debug/netcoreapp2.0
+/CodePractice/CodePractice/obj
+/CodePractice/Tests/obj
+/CodePractice/Tests/bin/Debug/netcoreapp2.0
+/CodePractice/packages

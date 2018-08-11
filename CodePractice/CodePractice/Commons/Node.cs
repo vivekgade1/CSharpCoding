@@ -9,7 +9,7 @@ namespace CodePractice.Commons
     /// <summary>
     /// Linked List Node.
     /// </summary>
-    class ListNode
+    public class ListNode
     {
         public int val;
         public ListNode next;
@@ -21,7 +21,7 @@ namespace CodePractice.Commons
         }
     }
     
-    class TLinkedList
+    public class TLinkedList
     {
         public ListNode Head { get; set; }
         public TLinkedList(int[] input)
