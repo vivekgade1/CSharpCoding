@@ -1,6 +1,7 @@
 ﻿using CodePractice.Commons;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CodePractice.LinkedList
@@ -173,13 +174,139 @@ namespace CodePractice.LinkedList
             return result;
 
         }
+        
+        /*
+         * Given a sorted list withduplicates. Return the list with unique items.
+         * Using a stack, pop the list and check for duplicates. 
+         * @author : vgade
+         */
+        public ListNode DeleteDuplicates2(ListNode inputHead) {
+            Stack<ListNode> listStack = new Stack<ListNode>();
+            ListNode currentNode = inputHead.next;
+            listStack.Push(inputHead);
+            ListNode popedNode = null;
+            
+            while (currentNode != null)
+            {   
+                if (listStack.Peek().val == currentNode.val)
+                {
+                    popedNode = listStack.Pop();
+                    while (currentNode != null && currentNode.val == popedNode.val)
+                    {
+                        currentNode = currentNode.next;
+                    }
+                }
 
+                if (listStack.Count != 0)
+                {
+                    listStack.Peek().next = currentNode;
+                }
+                else
+                {
+                    inputHead = currentNode;
+                }
+
+                if (currentNode != null)
+                {
+                    listStack.Push(currentNode);
+                    currentNode = currentNode.next;
+                }
+            }
+
+            return inputHead;
+
+        }
+        
+        /*
+         *  Rotate the list given a position.
+         * Find the position the node and set the tail and head of the result link.
+         * @author : vgade
+         */
+        public ListNode RotateRight(ListNode inputListHead, int position)
+        {
+            int inputSize = this.GetListLength(inputListHead);
+            ListNode currentNode = inputListHead;
+            int currentLength = 0;
+            ListNode prevNode = null;
+            ListNode resultNode = null;
+
+            if (position > inputSize) {position = position % inputSize;}
+            if (inputSize == position || position == 0 ) return inputListHead; // check for the given position to rotate greater then input length
+            
+            while (currentNode != null)
+            {
+                currentLength++;
+                if (currentLength == inputSize - position + 1) // check the position in the list to rotate
+                {
+                    prevNode.next = null; // Set the tail of the new list.
+                    resultNode = currentNode; // to set the new head of the rotated list.
+                }
+                
+                prevNode = currentNode;
+                currentNode = currentNode.next;
+                
+                if (currentNode == null)
+                {
+                    prevNode.next = inputListHead; // join the tails of input to form the new list.  
+                }
+            }
+
+            return resultNode;
+
+        }
+        /*
+         * Reorder the given list.
+         * used a stack to traverese the list from the end and iterate only to the mid of the list. 
+         * @author : vgade
+         */
+        public ListNode ReorderList(ListNode inputListHead)
+        {
+            Stack<ListNode> listStack = this.GetListStack(inputListHead); // travers teh list to get to the tail of the list.
+            int inputSize = listStack.Count; 
+            if (inputSize == 0 || inputSize == 1) return inputListHead;  
+            ListNode resultHead = inputListHead; // return the head.
+            ListNode poppedNode = null, nextNode = inputListHead.next;
+            
+            int halfSize = (int) (inputSize / 2);
+            
+
+            for (int indx = 0; indx < halfSize; indx++)
+            {
+                poppedNode = listStack.Pop();
+                inputListHead.next = poppedNode;
+                poppedNode.next = nextNode;
+                inputListHead = nextNode;
+                nextNode = nextNode.next;
+            }
+
+            // This check will ensure that the list in rearranged when the list length is odd. 
+            // The mid element will be in the last in this case.  
+            if(!listStack.Peek().Equals(nextNode))
+            {
+                nextNode = nextNode.next;
+            
+            }
+            nextNode.next = null;
+            
+            return resultHead;
+        }
+        
         private int GetListLength(ListNode head)
         {
             int result = 0;
             while(head != null)
             {
                 result++;
+                head = head.next;
+            }
+            return result;
+        }
+        private Stack<ListNode> GetListStack(ListNode head)
+        {
+            Stack<ListNode> result = new Stack<ListNode>();
+            while(head != null)
+            {
+                result.Push(head);
                 head = head.next;
             }
             return result;

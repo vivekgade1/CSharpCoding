@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CodePractice.Commons;
@@ -57,9 +58,7 @@ namespace Tests.LinkedList
         [TestMethod]
         public void RemoveNthFromEnd_ReturnHead()
         {
-            //TLinkedList testInput = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 4, 4, 5, 5, 6 });
-            //ListNode result = new TLinkedList(new int[] { 1, 2, 2, 3, 4, 4, 5, 5, 6 }).Head;
-            TLinkedList testInput = new TLinkedList(new int[] { 1 });
+            TLinkedList testInput = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 4, 4, 5, 5, 6 });
             ListNode result = new TLinkedList(new int[] { 1, 2, 2, 3, 4, 4, 5, 5, 6 }).Head;
 
 
@@ -69,6 +68,49 @@ namespace Tests.LinkedList
             Assert.IsTrue(this.compareLinkedLists(result, response));
         }
 
+        [TestMethod]
+        public void DeleteDuplicates2_ReturnInputHead()
+        {
+            TLinkedList testInput = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 3, 6 });
+            ListNode result = new TLinkedList(new int[] { 6 }).Head;
+
+
+            ListNode response = testInstance.DeleteDuplicates2(testInput.Head);
+
+            // Assert the test.
+            Assert.IsTrue(this.compareLinkedLists(result, response));
+            
+        }
+
+        [TestMethod]
+        public void RotateRight_ReturnsRotatedList()
+        {
+            TLinkedList testInput = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 3, 6 });
+            ListNode result = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 3, 6}).Head;
+            this.executeFunctionInputTypeListNodeInt(result, testInput, testInstance.RotateRight, 70);
+        }
+
+        [TestMethod]
+        public void ReorderList_ReturnsList()
+        {
+            TLinkedList testInput = new TLinkedList(new int[] { 1,1 });
+            ListNode result = new TLinkedList(new int[] {1,1}).Head;
+
+            this.executeFunctionInputTypeListNode(result, testInput, testInstance.ReorderList);
+        }
+
+        private void executeFunctionInputTypeListNode(ListNode result, TLinkedList testInput, Func<ListNode, ListNode> f)
+        {
+            ListNode response = f(testInput.Head);
+            Assert.IsTrue(this.compareLinkedLists(result, response));
+        }
+        
+        private void executeFunctionInputTypeListNodeInt(ListNode result, TLinkedList testInput, Func<ListNode,int, ListNode> f,int pos)
+        {
+            ListNode response = f(testInput.Head, pos);
+            Assert.IsTrue(this.compareLinkedLists(result, response));
+        }
+        
         private bool compareLinkedLists(ListNode first, ListNode second)
         {
             while (first != null)
