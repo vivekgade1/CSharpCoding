@@ -254,6 +254,7 @@ namespace CodePractice.LinkedList
             return resultNode;
 
         }
+        
         /*
          * Reorder the given list.
          * used a stack to traverese the list from the end and iterate only to the mid of the list. 
@@ -291,6 +292,72 @@ namespace CodePractice.LinkedList
             return resultHead;
         }
         
+        /*
+         *  Given a Linked list, reverse thelist in between two end point left and right. 
+         *  In place reversal and should be done in a simple pass.
+         *  @author : vgade
+         */
+        public ListNode ReverseBetween(ListNode inputListHead, int left, int right)
+        {
+            /*    Explanation for the sum.
+             *    if left = 2, right = 3
+             *    
+             *    1 ->  2 -> 3 -> 4 -> 5
+             *    |     |         |    |
+             *   LN    left     right  RN
+             *
+             *     current and prev are the pointers to the current and previous nodes while iterating.
+             *     refNode comes into picture to capture the currentNode between left and right.
+             */
+            
+            ListNode resultHead = inputListHead;
+            ListNode leftNode = null, rightNode = null, currentNode = inputListHead, prevNode = null, refNode = null;;
+            int listSize = 1;
+
+            while (listSize != right + 1)
+            {
+                if (listSize == left)
+                {
+                    leftNode = prevNode;
+                    rightNode = currentNode;
+                    refNode = null;
+                    while ( listSize != right + 1 ) // ietrating to the right + 1 because we need reference to the node on the right position.
+                    {
+                        refNode = currentNode;
+                        currentNode = currentNode.next;
+                        refNode.next = prevNode;
+                        prevNode = refNode;
+                        listSize++;
+                    }
+
+                    if (leftNode != null) 
+                        leftNode.next = refNode; 
+                    else 
+                        resultHead = refNode; // set the head when the left position is 1.
+                    
+                    if (rightNode != null)
+                        rightNode.next = currentNode;
+                    
+                }
+                else
+                {
+                    prevNode = currentNode;
+                    currentNode = currentNode.next;
+                    listSize++;
+                }
+
+            }
+
+            return resultHead;
+
+        }
+        
+        
+        /*
+         *  Helper classes start from here.
+         */
+        
+        // Gets the length of a list.
         private int GetListLength(ListNode head)
         {
             int result = 0;
@@ -301,6 +368,8 @@ namespace CodePractice.LinkedList
             }
             return result;
         }
+        
+        // Convert a list to stack.
         private Stack<ListNode> GetListStack(ListNode head)
         {
             Stack<ListNode> result = new Stack<ListNode>();

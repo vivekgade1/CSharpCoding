@@ -99,6 +99,17 @@ namespace Tests.LinkedList
             this.executeFunctionInputTypeListNode(result, testInput, testInstance.ReorderList);
         }
 
+        [TestMethod]
+        public void ReverseBetween_ReturnReversedList()
+        {
+            TLinkedList testInput = new TLinkedList(new int[] { 1,2,3,4,5 });
+            ListNode result = new TLinkedList(new int[] {5,4,3,2,1}).Head;
+            ListNode response = testInstance.ReverseBetween(testInput.Head,1,5);
+
+            // Assert the test.
+            Assert.IsTrue(this.compareLinkedLists(result, response));
+        }
+
         private void executeFunctionInputTypeListNode(ListNode result, TLinkedList testInput, Func<ListNode, ListNode> f)
         {
             ListNode response = f(testInput.Head);
