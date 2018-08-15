@@ -352,6 +352,149 @@ namespace CodePractice.LinkedList
 
         }
         
+        /*
+         *  Pairwise swap the given list.
+         * @author : vgade
+         */
+        public ListNode SwapPairs(ListNode inputHead)
+        {
+            /*
+             * Here I am maintaining 3 pointers in order to have reference of three consecutive nodes in the list.
+             *  1 -> 2 -> 3 -> 4 -> 5 ->null
+             *  |    |    |
+             * FN    SN   CN
+             */
+            ListNode returnHead = null;           
+            ListNode firstNode = inputHead, secondNode = inputHead.next, currentNode = null; // FN, SN, CN respectively.
+            if (secondNode != null)
+            {
+                currentNode = inputHead.next.next;
+                returnHead = secondNode; // returning the second node when the list is of size 2. 
+            }
+            else
+                return inputHead;
+            
+            while (currentNode != null)
+            {
+                secondNode.next = firstNode;
+                
+                if (currentNode.next != null)
+                {
+                    firstNode.next = currentNode.next;
+                    firstNode = currentNode;
+                    secondNode = currentNode.next;
+                    currentNode = currentNode.next.next;
+                }
+                else
+                {
+                    // this point gets triggers when the list is of odd length. 
+                    firstNode.next = currentNode;
+                    secondNode = null;
+                    currentNode = null;
+                }
+            }
+            // This condition gets satisfies when the list is of even number. 
+            if (secondNode != null)
+            {
+                secondNode.next = firstNode;
+                firstNode.next = null;
+            }
+            
+            return returnHead;
+        }
+        
+        /*
+         *
+         * @author : vgade 
+         */
+
+        public bool DetectCycle(ListNode inputHead)
+        {
+            ListNode prevNode = inputHead;
+            inputHead = inputHead.next.next;
+            while (inputHead != null)
+            {
+                if (inputHead.Equals(prevNode))
+                    prevNode = prevNode.next;
+                else
+                    return true;
+                if (inputHead.next != null)
+                {
+                    inputHead = inputHead.next.next;
+                }
+                else
+                {
+                    inputHead = null;
+                }
+            }
+            return false;
+        }
+        
+        
+        /*
+         * 
+         * @author : vgade
+         */
+        public ListNode addTwoNumbers(ListNode inputList1, ListNode inputList2) 
+        {
+           /*
+            *   1 -> 1 -> 9        // input1
+            *   0 -> 8 -> 2       // input 2
+            *   1 -> 9 -> 1 -> 1 // result  
+            */
+            
+            ListNode resultHead = new ListNode(-1);
+            ListNode currentNode = resultHead;
+            int carry = 0; // carry to the next field.
+            if(inputList1 == null ) return inputList2;
+            if(inputList2 == null) return inputList1;
+            
+            while (inputList1 != null || inputList2 != null)
+            {
+                // this condition is to check each of Node for null and replace it with 0 to calculate the current value. 
+                currentNode.val = (inputList1?.val ?? 0) + (inputList2?.val ?? 0) + carry; 
+                carry = (int) currentNode.val / 10;
+                currentNode.val = currentNode.val % 10;
+                
+                // increment pointers.
+                if(inputList1 != null) inputList1 = inputList1.next;
+                if(inputList2 != null)inputList2 = inputList2.next;
+                
+                if (!(inputList1 == null && inputList2 == null)) 
+                {
+                    currentNode.next = new ListNode(-1);
+                    currentNode = currentNode.next;
+                }
+                else
+                {
+                    currentNode.next = null; // set the tail pointer.
+                }
+            }
+            
+            if (carry != 0) currentNode.next = new ListNode(carry); // check for the carry at the end.
+            else currentNode.next = null;
+            return resultHead;
+
+        }
+        
+        /*
+         *
+         * @author : vgade
+         */
+        public ListNode sortList(ListNode inputHead)
+        {
+            ListNode resultHead = inputHead;
+            ListNode prevNode = inputHead;
+            inputHead = inputHead.next;
+            while (inputHead != null)
+            {
+                if(inputHead.val )
+            }
+
+            return resultHead;
+
+        }
+        
         
         /*
          *  Helper classes start from here.

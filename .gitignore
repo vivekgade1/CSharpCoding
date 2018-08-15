@@ -9,3 +9,5 @@
 /CodePractice/Tests/obj
 /CodePractice/Tests/bin/Debug/netcoreapp2.0
 /CodePractice/packages
+*.xml
+*.iml

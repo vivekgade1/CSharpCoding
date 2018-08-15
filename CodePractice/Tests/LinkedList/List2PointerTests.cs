@@ -110,6 +110,30 @@ namespace Tests.LinkedList
             Assert.IsTrue(this.compareLinkedLists(result, response));
         }
 
+        [TestMethod]
+        public void SwapPairs_RetunsList()
+        {
+            TLinkedList testInput = new TLinkedList(new int[] { 1,2});
+            ListNode result = new TLinkedList(new int[] {2,1}).Head;
+            
+            this.executeFunctionInputTypeListNode(result, testInput, testInstance.SwapPairs);
+            
+        }
+
+        [TestMethod]
+        public void AddTwoNumbers_ReturnSumAsList()
+        {
+            TLinkedList testInput1 = new TLinkedList(new int[] { 9,9});
+            TLinkedList testInput2 = new TLinkedList(new int[] { 9,9});
+            ListNode result = new TLinkedList(new int[] {8,9,1}).Head;
+            ListNode response = testInstance.addTwoNumbers(testInput1.Head,testInput2.Head);
+
+            // Assert the test.
+            Assert.IsTrue(this.compareLinkedLists(result, response));
+            
+            
+            
+        }
         private void executeFunctionInputTypeListNode(ListNode result, TLinkedList testInput, Func<ListNode, ListNode> f)
         {
             ListNode response = f(testInput.Head);
