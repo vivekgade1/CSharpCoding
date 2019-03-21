@@ -11,19 +11,19 @@ namespace Tests.LinkedList
     [TestClass]
     public class List2PointerTests
     {
-        public List2Pointer testInstance;
+        public List2Pointer TestInstance;
 
         [TestInitialize]
         public void Setup()
         {
-            testInstance = new List2Pointer();
+            TestInstance = new List2Pointer();
         }
 
         [TestMethod]
         public void LPalin_ReturnInt()
         {
             TLinkedList testInput = new TLinkedList(new int[] { 1, 2, 1 });
-            ListNode response = testInstance.deleteDuplicates(testInput.Head);
+            ListNode response = TestInstance.deleteDuplicates(testInput.Head);
             ListNode result = testInput.Head;
 
             // Assert
@@ -36,7 +36,7 @@ namespace Tests.LinkedList
             TLinkedList testInput = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 4, 4, 5, 5, 6 });
             ListNode result = new TLinkedList(new int[] {1,2,3,4,5,6 }).Head;
 
-            ListNode response = testInstance.deleteDuplicates(testInput.Head);
+            ListNode response = TestInstance.deleteDuplicates(testInput.Head);
 
             // Assert the test.
             Assert.IsTrue(this.compareLinkedLists(result, response));
@@ -49,7 +49,7 @@ namespace Tests.LinkedList
             TLinkedList testInput_2 = new TLinkedList(new int[] { 4, 5, 6 });
             ListNode result = new TLinkedList(new int[] { 1, 2, 3, 4, 5, 6 }).Head;
 
-            ListNode response = testInstance.MergeTwoLists(testInput_1.Head,testInput_2.Head);
+            ListNode response = TestInstance.MergeTwoLists(testInput_1.Head,testInput_2.Head);
 
             // Assert the test.
             Assert.IsTrue(this.compareLinkedLists(result, response));
@@ -62,7 +62,7 @@ namespace Tests.LinkedList
             ListNode result = new TLinkedList(new int[] { 1, 2, 2, 3, 4, 4, 5, 5, 6 }).Head;
 
 
-            ListNode response = testInstance.RemoveNthFromEnd(testInput.Head,15);
+            ListNode response = TestInstance.RemoveNthFromEnd(testInput.Head,15);
 
             // Assert the test.
             Assert.IsTrue(this.compareLinkedLists(result, response));
@@ -75,7 +75,7 @@ namespace Tests.LinkedList
             ListNode result = new TLinkedList(new int[] { 6 }).Head;
 
 
-            ListNode response = testInstance.DeleteDuplicates2(testInput.Head);
+            ListNode response = TestInstance.DeleteDuplicates2(testInput.Head);
 
             // Assert the test.
             Assert.IsTrue(this.compareLinkedLists(result, response));
@@ -87,7 +87,7 @@ namespace Tests.LinkedList
         {
             TLinkedList testInput = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 3, 6 });
             ListNode result = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 3, 6}).Head;
-            this.executeFunctionInputTypeListNodeInt(result, testInput, testInstance.RotateRight, 70);
+            this.executeFunctionInputTypeListNodeInt(result, testInput, TestInstance.RotateRight, 70);
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace Tests.LinkedList
             TLinkedList testInput = new TLinkedList(new int[] { 1,1 });
             ListNode result = new TLinkedList(new int[] {1,1}).Head;
 
-            this.executeFunctionInputTypeListNode(result, testInput, testInstance.ReorderList);
+            this.executeFunctionInputTypeListNode(result, testInput, TestInstance.ReorderList);
         }
 
         [TestMethod]
@@ -104,7 +104,7 @@ namespace Tests.LinkedList
         {
             TLinkedList testInput = new TLinkedList(new int[] { 1,2,3,4,5 });
             ListNode result = new TLinkedList(new int[] {5,4,3,2,1}).Head;
-            ListNode response = testInstance.ReverseBetween(testInput.Head,1,5);
+            ListNode response = TestInstance.ReverseBetween(testInput.Head,1,5);
 
             // Assert the test.
             Assert.IsTrue(this.compareLinkedLists(result, response));
@@ -116,7 +116,7 @@ namespace Tests.LinkedList
             TLinkedList testInput = new TLinkedList(new int[] { 1,2});
             ListNode result = new TLinkedList(new int[] {2,1}).Head;
             
-            this.executeFunctionInputTypeListNode(result, testInput, testInstance.SwapPairs);
+            this.executeFunctionInputTypeListNode(result, testInput, TestInstance.SwapPairs);
             
         }
 
@@ -126,7 +126,7 @@ namespace Tests.LinkedList
             TLinkedList testInput1 = new TLinkedList(new int[] { 9,9});
             TLinkedList testInput2 = new TLinkedList(new int[] { 9,9});
             ListNode result = new TLinkedList(new int[] {8,9,1}).Head;
-            ListNode response = testInstance.addTwoNumbers(testInput1.Head,testInput2.Head);
+            ListNode response = TestInstance.addTwoNumbers(testInput1.Head,testInput2.Head);
 
             // Assert the test.
             Assert.IsTrue(this.compareLinkedLists(result, response));

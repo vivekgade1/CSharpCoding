@@ -488,7 +488,7 @@ namespace CodePractice.LinkedList
             inputHead = inputHead.next;
             while (inputHead != null)
             {
-                if(inputHead.val )
+                // if(inputHead.val )
             }
 
             return resultHead;
