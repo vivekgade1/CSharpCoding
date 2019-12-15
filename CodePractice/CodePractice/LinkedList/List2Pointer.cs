@@ -12,10 +12,10 @@ namespace CodePractice.LinkedList
     /// </summary>
     public class List2Pointer
     {
-        public static void Main(string[] args)
+/*        public static void Main(string[] args)
         {
             TLinkedList testList = new TLinkedList(new int[] { 1, 1, 2, 2, 3, 4, 4, 5, 5, 6 });
-        }
+        }*/
 
         /*
          * Check for palindrome linked list
@@ -172,11 +172,10 @@ namespace CodePractice.LinkedList
                 inputListHead = inputListHead.next;
             }
             return result;
-
         }
         
         /*
-         * Given a sorted list withduplicates. Return the list with unique items.
+         * Given a sorted list with duplicates. Return the list with unique items.
          * Using a stack, pop the list and check for duplicates. 
          * @author : vgade
          */
@@ -257,7 +256,7 @@ namespace CodePractice.LinkedList
         
         /*
          * Reorder the given list.
-         * used a stack to traverese the list from the end and iterate only to the mid of the list. 
+         * used a stack to traverse the list from the end and iterate only to the mid of the list. 
          * @author : vgade
          */
         public ListNode ReorderList(ListNode inputListHead)
