@@ -1,32 +1,160 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using CodePractice.Commons;
 
 namespace CodePractice.Trees
 {
-    public class Node
-    {
-        public int val;
-        public Node left;
-        public Node right;
-        public Node next;
-
-        public Node()
-        {
-        }
-
-        public Node(int _val, Node _left, Node _right, Node _next)
-        {
-            val = _val;
-            left = _left;
-            right = _right;
-            next = _next;
-        }
-    }
-
     public class Trees
     {
+        public static void Main()
+        {
+            TreeNode test = new BuildTree().SimpleTreeFromList(new List<int>(){1,2});
+            Trees input = new Trees();
+            Console.WriteLine(input.RightSideView(test));
+        }
+        
+        /// <summary>
+        /// Right side view of the tree.
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<int> RightSideView(TreeNode root)
+        {
+            List<List<int>> levelLists = this.GetLevelOrderNodesAsList(root);
+            List<int> result = new List<int>();
+            
+            levelLists.ForEach(levelList =>
+            {
+                if (levelList.Any())
+                {
+                    result.Add(levelList[^1]);                    
+                }
+            });
+            return result;
+        }
+        
+        /// <summary>
+        /// Figures the boundary of a binary tree. 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<int> BoundaryOfBinaryTree(TreeNode root) {
+            /*
+             *  First do a level oredr traversal of the tree and them push left most and right most nodes according to the buckets.
+             *  Put all the nodes in last level which is the leaves list and the concat the buckets for the result.  
+             */
+
+            List<int> result = new List<int>();
+            if (root == null)
+            {
+                return result;
+            }
+            List<int> leftSide = this.leftBoundary(root); // left view  of the tree with out leaf
+            List<int> rightSide = this.rightBoundary(root); // right view of the tree with out leaf and root 
+            List<int> leaves = this.leafNodes(root, new List<int>()); // all the leaves from left to right
+            rightSide.Reverse();
+            if (leaves.Count > 0)
+            {
+                if (leftSide[leftSide.Count - 1] == leaves[0])
+                {
+                    leftSide = leftSide.GetRange(0, leftSide.Count - 1);
+                }
+
+                if (rightSide.Count > 0 && rightSide[0] == leaves[leaves.Count - 1])
+                {
+                    rightSide = rightSide.GetRange(1, rightSide.Count - 1);
+                }
+                
+                if ((leftSide.Count > 0 && rightSide.Count > 0)&& (leftSide[0] == rightSide[rightSide.Count -1]))
+                {
+                    rightSide = rightSide.GetRange(0, rightSide.Count - 1);
+                }
+            }
+
+            leftSide.AddRange(leaves);
+            leftSide.AddRange(rightSide);
+            return leftSide;
+        }
+
+        private List<int> leafNodes(TreeNode root, List<int> result)
+        {
+            
+            if (root.left != null)
+            {
+                _ = this.leafNodes(root.left, result);
+            }
+
+            if (root.right != null)
+            {
+                _ = this.leafNodes(root.right, result);
+            }
+            
+            if (root.left == null && root.right == null)
+            {
+                result.Add(root.val);                
+            }
+            
+            return result;
+        }
+
+        private List<int> rightBoundary(TreeNode root)
+        {
+            TreeNode ele = root;
+            List<int> result = new List<int>();
+            if (ele == null)
+            {
+                return result;
+            }
+            if (ele.right == null)
+            {
+                result.Add(ele.val);
+                return result;
+            }
+            
+            while (ele != null)
+            {
+                result.Add(ele.val);
+                if (ele.right != null)
+                {
+                    ele = ele.right;
+                }
+                else
+                {
+                    ele = ele.left;
+                }
+            }
+            return result;
+        }
+
+        private List<int> leftBoundary(TreeNode root)
+        {
+            TreeNode ele = root;
+            List<int> result = new List<int>();
+            if (ele.left == null)
+            {
+                result.Add(ele.val);
+                return result;
+            }
+
+            while (ele != null)
+            {
+                result.Add(ele.val);
+                if (ele.left != null)
+                {
+                    ele = ele.left;
+                }
+                else
+                {
+                    ele = ele.right;
+                }
+            }
+
+            return result;
+        }
+
+
         /// <summary>
         /// Path sum.
         /// </summary>
@@ -72,7 +200,7 @@ namespace CodePractice.Trees
             }
         }
         
-        /// <summary>
+        /*/// <summary>
         /// 
         /// </summary>
         /// <param name="root"></param>
@@ -153,7 +281,7 @@ namespace CodePractice.Trees
                 }
             }
             return root;
-        }
+        }*/
 
         /// <summary>
         /// Check the tree is balanced by dong level order traversal and checking the length at each level.
@@ -344,6 +472,40 @@ namespace CodePractice.Trees
             }
             return result;
 
+        }
+        private List<List<int>> GetLevelOrderNodesAsList(TreeNode root)
+        {
+            List<List<int>> result = new List<List<int>>();
+
+            if (root == null) return result;
+            Queue<TreeNode> intermList = new Queue<TreeNode>();
+            intermList.Enqueue(root);
+
+            while (intermList.Any())
+            {
+                List<int> levelValuesList = new List<int>();
+                int levelNodesCount = intermList.Count;
+                while (levelNodesCount != 0)
+                {
+                    TreeNode currNode = intermList.Dequeue();
+                    if (currNode.left != null)
+                    {
+                        intermList.Enqueue(currNode.left);
+                    }
+                    if (currNode.right != null)
+                    {
+                        intermList.Enqueue(currNode.right);
+                    }
+                    levelValuesList.Add(currNode.val);
+                    levelNodesCount--;
+                }
+
+                if (levelValuesList.Any())
+                {
+                    result.Add(levelValuesList);
+                }
+            }
+            return result;
         }
     }
 }

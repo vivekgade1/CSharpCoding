@@ -4,10 +4,13 @@
 
 /.vs
 /CodePractice/.vs/CodePractice
-/CodePractice/CodePractice/bin/Debug/netcoreapp2.0
+/CodePractice/CodePractice/bin/*
 /CodePractice/CodePractice/obj
 /CodePractice/Tests/obj
-/CodePractice/Tests/bin/Debug/netcoreapp2.0
+/CodePractice/Tests/bin/*
 /CodePractice/packages
+/CodePractice/Tests/bin/*
 *.xml
 *.iml
+*.exe
+*.dll
