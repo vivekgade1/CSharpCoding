@@ -10,9 +10,51 @@ namespace CodePractice.Trees
     {
         public static void Main()
         {
-            TreeNode test = new BuildTree().SimpleTreeFromList(new List<int>(){1,2});
+            TreeNode test = new BuildTree().SimpleTreeFromList(new List<int>(){10,5,15,6,20});
             Trees input = new Trees();
-            Console.WriteLine(input.RightSideView(test));
+            Console.WriteLine(input.IsValidBST(test));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public bool IsValidBST(TreeNode root) 
+        {
+            Queue<TreeNode> levelQueue = new Queue<TreeNode>();
+            if (root == null)
+            {
+                return true;
+            }
+            
+            levelQueue.Enqueue(root);
+
+            while (levelQueue.Any())
+            {
+                TreeNode deQueuedNode = levelQueue.Dequeue();
+                int currentVal = deQueuedNode.val;
+                int leftVal = Int32.MinValue;
+                int rightVal = Int32.MaxValue;
+
+                if (deQueuedNode.left != null)
+                {
+                    leftVal = deQueuedNode.left.val;
+                    levelQueue.Enqueue(deQueuedNode.left);
+                }
+
+                if (deQueuedNode.right != null)
+                {
+                    rightVal = deQueuedNode.right.val;
+                    levelQueue.Enqueue(deQueuedNode.right);
+                }
+
+                if (!(currentVal < rightVal && currentVal > leftVal))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
         
         /// <summary>
@@ -29,7 +71,7 @@ namespace CodePractice.Trees
             {
                 if (levelList.Any())
                 {
-                    result.Add(levelList[^1]);                    
+                    result.Add(levelList[levelList.Count - 1]);                    
                 }
             });
             return result;
